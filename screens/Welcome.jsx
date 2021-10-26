@@ -1,6 +1,6 @@
 import React from "react";
-import { StyleSheet, View, Text } from "react-native";
-import { ImportantButton } from "../components/ImportantButton";
+import { StyleSheet, View, Text, Linking } from "react-native";
+import { PositiveButton, NegativeButton } from "../components/Button";
 
 export const WelcomeScreen = () => {
   return (
@@ -9,7 +9,10 @@ export const WelcomeScreen = () => {
         <View style={styles.logo} />
         <Text style={styles.title}>tyablo</Text>
       </View>
-      <ImportantButton onPress={() => alert("test")}>Get Started</ImportantButton>
+      <View>
+        <PositiveButton onPress={() => alert("test")}>Get Started</PositiveButton>
+        <NegativeButton onPress={() => Linking.openURL("https://ty.altrazio.com/go/privacy")}>See Privacy Policy</NegativeButton>
+      </View>
     </View>
   );
 };
