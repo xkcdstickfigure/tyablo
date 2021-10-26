@@ -1,7 +1,10 @@
-import React from "react";
+import React, { useContext } from "react";
 import { View, Text } from "react-native";
+import { LoginContext } from "./context";
 
 export const CodeVerify = () => {
+  const { loginId } = useContext(LoginContext);
+
   return (
     <View
       style={{
@@ -10,7 +13,7 @@ export const CodeVerify = () => {
         justifyContent: "space-between",
       }}
     >
-      <Text>abc</Text>
+      <Text>{loginId}</Text>
     </View>
   );
 };
