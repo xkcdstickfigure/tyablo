@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { View, Dimensions } from "react-native";
+import { View, Dimensions, KeyboardAvoidingView } from "react-native";
 import { Welcome } from "./Welcome";
 import { PhoneLogin } from "./Phone";
 import { CodeVerify } from "./Code";
@@ -52,41 +52,46 @@ export const Login = () => {
         loginId,
       }}
     >
-      <View
-        style={{
-          height: "100%",
-          flexDirection: "row",
-          width: width * 2,
-          marginLeft: `-${offset}%`,
-        }}
+      <KeyboardAvoidingView
+        behavior={Platform.OS === "ios" ? "padding" : "height"}
       >
-        {Object.keys(screens).map((id) => {
-          const Screen = screens[id];
-          return id === currentScreen || id === oldScreen ? (
-            <View
-              key={id}
-              style={{
-                width,
-                height: "100%",
-                paddingHorizontal: 10,
-                paddingVertical: 50,
-                position: "absolute",
-                top: 0,
-                left:
-                  id === currentScreen
-                    ? sliding
-                      ? width
-                      : 0
-                    : sliding
-                    ? 0
-                    : width,
-              }}
-            >
-              <Screen />
-            </View>
-          ) : null;
-        })}
-      </View>
+        <View
+          style={{
+            height: "100%",
+            flexDirection: "row",
+            width: width * 2,
+            marginLeft: `-${offset}%`,
+          }}
+        >
+          {Object.keys(screens).map((id) => {
+            const Screen = screens[id];
+            return id === currentScreen || id === oldScreen ? (
+              <View
+                key={id}
+                style={{
+                  width,
+                  height: "100%",
+                  paddingHorizontal: 10,
+                  paddingTop: 50,
+                  paddingBottom: 20,
+                  position: "absolute",
+                  top: 0,
+                  left:
+                    id === currentScreen
+                      ? sliding
+                        ? width
+                        : 0
+                      : sliding
+                      ? 0
+                      : width,
+                }}
+              >
+                <Screen />
+              </View>
+            ) : null;
+          })}
+        </View>
+      </KeyboardAvoidingView>
     </LoginContext.Provider>
   );
 };

@@ -1,11 +1,5 @@
 import React, { useState, useEffect, createRef, useContext } from "react";
-import {
-  KeyboardAvoidingView,
-  Keyboard,
-  Platform,
-  View,
-  Text,
-} from "react-native";
+import { Keyboard, View, Text } from "react-native";
 import { ButtonSet } from "../components/Button";
 import { PhoneInput } from "../components/PhoneInput";
 import { TextLink } from "../components/TextLink";
@@ -120,12 +114,12 @@ export const PhoneLogin = () => {
         </View>
       </View>
 
-      <KeyboardAvoidingView
-        style={{ marginTop: 20 }}
-        behavior={Platform.OS === "ios" ? "padding" : "height"}
-      >
-        <ButtonSet positive="Continue" onPositive={submit} />
-      </KeyboardAvoidingView>
+      <View style={{ marginTop: 20 }}>
+        <ButtonSet
+          positive="Continue"
+          onPositive={submit}
+        />
+      </View>
     </View>
   );
 };
