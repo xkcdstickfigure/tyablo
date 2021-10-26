@@ -41,7 +41,7 @@ export const NegativeButton = ({ children, style, ...props }) => {
     >
       <Text
         style={{
-          color: colors.gray[400],
+          color: colors.gray[600],
           fontSize: 12,
           fontWeight: "600",
         }}
