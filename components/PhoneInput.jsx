@@ -34,6 +34,7 @@ export const PhoneInput = forwardRef(({ ...props }, ref) => {
       <View style={{ flexGrow: 1, flexShrink: 1 }}>
         <TextInput
           ref={ref}
+          placeholder="7725872946"
           dataDetectorTypes="phoneNumber"
           autoComplete="tel"
           keyboardType="number-pad"
