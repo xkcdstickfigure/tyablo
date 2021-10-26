@@ -8,12 +8,12 @@ import { LoginContext } from "./context";
 import { API } from "../config";
 import axios from "axios";
 
-export const CodeVerify = () => {
-  const { setScreen, sliding, currentScreen, loginId, setLoginCode, onLogin } =
+export const Register = () => {
+  const { setScreen, sliding, currentScreen, loginId, loginCode, onLogin } =
     useContext(LoginContext);
-  const focused = currentScreen === "code" && !sliding;
+  const focused = currentScreen === "register" && !sliding;
   const input = createRef();
-  const [code, setCode] = useState();
+  const [username, setUsername] = useState();
   const [error, setError] = useState();
 
   // Autofocus
@@ -26,31 +26,22 @@ export const CodeVerify = () => {
   // Submit
   const submit = () => {
     Keyboard.dismiss();
-    if (!code) return;
-    setLoginCode(code);
+    if (!username.trim()) return;
 
     axios
       .post(
         `${API}/login/code`,
         {
           id: loginId,
-          code,
+          code: loginCode,
+          name: username.trim(),
         },
         {
           timeout: 1000,
         }
       )
       .then(({ data }) => onLogin(data))
-      .catch(({ response }) => {
-        const err = response?.data;
-        if (err === "Missing Account") setScreen("register");
-        else
-          setError(
-            err === "Invalid Code"
-              ? "That code isn't working. Try again."
-              : "Something went wrong! Please try again."
-          );
-      });
+      .catch(() => setError("Something went wrong! Please try again."));
   };
 
   return (
@@ -65,11 +56,20 @@ export const CodeVerify = () => {
         <View>
           <Text
             style={{
+              fontSize: 30,
+              textAlign: "center",
+              marginBottom: 10,
+            }}
+          >
+            Create an Account
+          </Text>
+          <Text
+            style={{
               fontSize: 20,
               textAlign: "center",
             }}
           >
-            We sent you a login code!
+            What's your name?
           </Text>
         </View>
 
@@ -81,22 +81,13 @@ export const CodeVerify = () => {
         >
           <Input
             ref={input}
-            value={code}
-            onChange={({ nativeEvent: e }) =>
-              setCode(e.text.replace(/\D/g, ""))
-            }
-            keyboardType="number-pad"
-            maxLength={8}
+            value={username}
+            onChange={({ nativeEvent: e }) => setUsername(e.text)}
+            maxLength={35}
             style={{
               textAlign: "center",
-              letterSpacing: 8,
             }}
           />
-          <View style={{ marginTop: 10, paddingHorizontal: 10 }}>
-            <Text style={{ textAlign: "center", fontSize: 12 }}>
-              Check your texts - it could take a minute or so
-            </Text>
-          </View>
 
           {error && (
             <Text
@@ -114,9 +105,9 @@ export const CodeVerify = () => {
 
       <View style={{ marginTop: 20 }}>
         <ButtonSet
-          positive="Continue"
+          positive="Sign Up"
           onPositive={submit}
-          negative="Change Phone Number"
+          negative="Start Again"
           onNegative={() => setScreen("phone")}
         />
       </View>

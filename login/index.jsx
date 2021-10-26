@@ -3,6 +3,7 @@ import { View, Dimensions, KeyboardAvoidingView } from "react-native";
 import { Welcome } from "./Welcome";
 import { PhoneLogin } from "./Phone";
 import { CodeVerify } from "./Code";
+import { Register } from "./Register";
 import { LoginContext } from "./context";
 
 const { width } = Dimensions.get("window");
@@ -11,6 +12,7 @@ const screens = {
   welcome: Welcome,
   phone: PhoneLogin,
   code: CodeVerify,
+  register: Register,
 };
 
 export const Login = () => {
@@ -42,6 +44,10 @@ export const Login = () => {
   const [loginId, setLoginId] = useState();
   const [loginCode, setLoginCode] = useState();
 
+  const onLogin = (data) => {
+    alert(data.token);
+  };
+
   return (
     <LoginContext.Provider
       value={{
@@ -51,6 +57,8 @@ export const Login = () => {
         setLoginId,
         loginId,
         setLoginCode,
+        loginCode,
+        onLogin,
       }}
     >
       <KeyboardAvoidingView
