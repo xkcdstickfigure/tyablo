@@ -1,12 +1,23 @@
 import React, { useState, useEffect, createRef } from "react";
-import { KeyboardAvoidingView, Platform, View, Text } from "react-native";
+import {
+  KeyboardAvoidingView,
+  Keyboard,
+  Platform,
+  View,
+  Text,
+} from "react-native";
 import { ButtonSet } from "../components/Button";
 import { PhoneInput } from "../components/PhoneInput";
 import { TextLink } from "../components/TextLink";
+import colors from "../colors";
+
+import { API } from "../config";
+import axios from "axios";
 
 export const PhoneLogin = ({ focused }) => {
   const phoneInput = createRef();
   const [phoneNumber, setPhoneNumber] = useState();
+  const [error, setError] = useState();
 
   // Autofocus
   useEffect(() => {
@@ -17,7 +28,30 @@ export const PhoneLogin = ({ focused }) => {
 
   // Submit
   const submit = () => {
-    console.log(phoneNumber);
+    Keyboard.dismiss();
+    if (!phoneNumber) return;
+
+    axios
+      .post(
+        `${API}/login/phone`,
+        {
+          number: phoneNumber,
+        },
+        {
+          timeout: 1000,
+        }
+      )
+      .then(({ data }) => {
+        console.log(data);
+      })
+      .catch(({ response }) => {
+        const err = response?.data;
+        setError(
+          err === "Invalid Phone Number"
+            ? "You can't use this phone number. Check that you typed it in right, or use a different one."
+            : "Something went wrong! Please try again."
+        );
+      });
   };
 
   return (
@@ -52,7 +86,7 @@ export const PhoneLogin = ({ focused }) => {
 
         <View
           style={{
-            marginTop: 50,
+            marginTop: 20,
             alignItems: "center",
           }}
         >
@@ -62,11 +96,23 @@ export const PhoneLogin = ({ focused }) => {
               We'll send you a verification code over SMS.
             </Text>
             <Text style={{ textAlign: "center" }}>
-              You're agreeing to our{" "}
+              By continuing, you're agreeing to our{" "}
               <TextLink to="terms">terms of use</TextLink> and{" "}
               <TextLink to="privacy">privacy policy</TextLink>.
             </Text>
           </View>
+
+          {error && (
+            <Text
+              style={{
+                color: colors.red[500],
+                textAlign: "center",
+                marginTop: 10,
+              }}
+            >
+              {error}
+            </Text>
+          )}
         </View>
       </View>
 
