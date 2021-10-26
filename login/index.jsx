@@ -10,12 +10,15 @@ export const Login = () => {
   const [currentScreen, setCurrentScreen] = useState("one");
   const [sliding, setSliding] = useState(false);
   const [offset, setOffset] = useState(0);
+
   const setScreen = (name) => {
     setOldScreen(currentScreen);
     setCurrentScreen(name);
     setSliding(true);
+
     let o = 0;
     let ov = 0;
+
     const i = setInterval(() => {
       ov += 0.5;
       o += ov;
