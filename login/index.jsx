@@ -6,7 +6,7 @@ const { width } = Dimensions.get("screen");
 console.log(width);
 
 export const Login = () => {
-  const [oldScreen, setOldScreen] = useState("login");
+  const [oldScreen, setOldScreen] = useState();
   const [currentScreen, setCurrentScreen] = useState("welcome");
   const [sliding, setSliding] = useState(false);
 
@@ -47,6 +47,7 @@ export const Login = () => {
       {Object.keys(screens).map((id) =>
         id === currentScreen || id === oldScreen ? (
           <View
+            key={id}
             style={{
               position: "absolute",
               top: 0,
