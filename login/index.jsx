@@ -7,7 +7,7 @@ console.log(width);
 
 export const Login = () => {
   const [oldScreen, setOldScreen] = useState();
-  const [currentScreen, setCurrentScreen] = useState("welcome");
+  const [currentScreen, setCurrentScreen] = useState("one");
   const [sliding, setSliding] = useState(false);
 
   const [offset, setOffset] = useState(0);
@@ -30,8 +30,9 @@ export const Login = () => {
   };
 
   const screens = {
-    welcome: <Screen title="one" action={() => setScreen("login")} />,
-    login: <Screen title="two" action={() => setScreen("welcome")} />,
+    one: <Screen title="ein" action={() => setScreen("two")} />,
+    two: <Screen title="zwei" action={() => setScreen("three")} />,
+    three: <Screen title="drei" action={() => setScreen("one")} />,
   };
 
   return (
