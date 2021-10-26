@@ -31,8 +31,8 @@ export const Login = () => {
   };
 
   const screens = {
-    welcome: <Welcome setScreen={setScreen} />,
-    phone: <PhoneLogin setScreen={setScreen} />,
+    welcome: Welcome,
+    phone: PhoneLogin,
   };
 
   return (
@@ -44,8 +44,9 @@ export const Login = () => {
         marginLeft: `-${offset}%`,
       }}
     >
-      {Object.keys(screens).map((id) =>
-        id === currentScreen || id === oldScreen ? (
+      {Object.keys(screens).map((id) => {
+        const Screen = screens[id];
+        return id === currentScreen || id === oldScreen ? (
           <View
             key={id}
             style={{
@@ -63,10 +64,13 @@ export const Login = () => {
                   : width,
             }}
           >
-            {screens[id]}
+            <Screen
+              setScreen={setScreen}
+              focused={id === currentScreen && !sliding}
+            />
           </View>
-        ) : null
-      )}
+        ) : null;
+      })}
     </View>
   );
 };

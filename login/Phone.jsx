@@ -1,8 +1,17 @@
-import React from "react";
-import { View, Text } from "react-native";
+import React, { useEffect, createRef } from "react";
+import { KeyboardAvoidingView, Platform, View, Text } from "react-native";
 import { ButtonSet } from "../components/Button";
+import { PhoneInput } from "../components/PhoneInput";
 
-export const PhoneLogin = () => {
+export const PhoneLogin = ({ focused }) => {
+  const phoneInput = createRef();
+
+  useEffect(() => {
+    if (focused) {
+      phoneInput.current.focus();
+    }
+  }, [focused]);
+
   return (
     <View
       style={{
@@ -13,25 +22,41 @@ export const PhoneLogin = () => {
       }}
     >
       <View>
-        <Text
+        <View>
+          <Text
+            style={{
+              fontSize: 40,
+              textAlign: "center",
+              marginBottom: 10,
+            }}
+          >
+            First things first
+          </Text>
+          <Text
+            style={{
+              fontSize: 20,
+              textAlign: "center",
+            }}
+          >
+            What's your phone number?
+          </Text>
+        </View>
+
+        <View
           style={{
-            fontSize: 40,
-            textAlign: "center",
-            marginBottom: 10,
+            marginTop: 50,
+            alignItems: "center",
           }}
         >
-          First things first
-        </Text>
-        <Text
-          style={{
-            fontSize: 20,
-            textAlign: "center",
-          }}
-        >
-          What's your phone number?
-        </Text>
+          <PhoneInput ref={phoneInput} />
+        </View>
       </View>
-      <ButtonSet positive="Let's Go!" onPositive={() => {}} />
+
+      <KeyboardAvoidingView
+        behavior={Platform.OS === "ios" ? "padding" : "height"}
+      >
+        <ButtonSet positive="Continue" onPositive={() => {}} />
+      </KeyboardAvoidingView>
     </View>
   );
 };
