@@ -1,5 +1,6 @@
 import React, { forwardRef, useState } from "react";
 import { View, Text, TextInput } from "react-native";
+import colors from "../colors";
 
 export const PhoneInput = forwardRef(({ onChange, ...props }, ref) => {
   const [value, setValue] = useState();
@@ -10,7 +11,7 @@ export const PhoneInput = forwardRef(({ onChange, ...props }, ref) => {
         height: 40,
         width: 250,
         borderWidth: 1,
-        borderColor: "#9ca3af",
+        borderColor: colors.gray[400],
         borderRadius: 10,
         flexDirection: "row",
       }}
@@ -23,7 +24,7 @@ export const PhoneInput = forwardRef(({ onChange, ...props }, ref) => {
         <View
           style={{
             borderRightWidth: 1,
-            borderColor: "#9ca3af",
+            borderColor: colors.gray[400],
             paddingHorizontal: 5,
             width: 70,
             height: 25,
