@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { View, Dimensions } from "react-native";
 import { Welcome } from "./Welcome";
 import { PhoneLogin } from "./Phone";
+import { CodeVerify } from "./Code";
 
 const { width } = Dimensions.get("screen");
 
@@ -12,6 +13,7 @@ export const Login = () => {
   const [offset, setOffset] = useState(0);
 
   const setScreen = (name) => {
+    console.log(name);
     setOldScreen(currentScreen);
     setCurrentScreen(name);
     setSliding(true);
@@ -36,6 +38,7 @@ export const Login = () => {
   const screens = {
     welcome: Welcome,
     phone: (props) => <PhoneLogin {...props} setLoginId={setLoginId} />,
+    code: (props) => <CodeVerify {...props} loginId={loginId} />,
   };
 
   return (
