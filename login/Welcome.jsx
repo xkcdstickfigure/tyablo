@@ -38,7 +38,6 @@ export const Welcome = () => {
       <ButtonSet
         positive="Let's Go!"
         onPositive={() => setScreen("phone")}
-        negative="Not Right Now"
       />
     </View>
   );
