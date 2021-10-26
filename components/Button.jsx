@@ -1,7 +1,7 @@
 import React from "react";
-import { Text, Pressable } from "react-native";
+import { View, Text, Pressable } from "react-native";
 
-export const PositiveButton = ({ children, ...props }) => {
+export const PositiveButton = ({ children, style, ...props }) => {
   return (
     <Pressable
       {...props}
@@ -12,6 +12,7 @@ export const PositiveButton = ({ children, ...props }) => {
         borderRadius: 10,
         alignItems: "center",
         justifyContent: "center",
+        ...style,
       }}
     >
       <Text
@@ -26,7 +27,7 @@ export const PositiveButton = ({ children, ...props }) => {
   );
 };
 
-export const NegativeButton = ({ children, ...props }) => {
+export const NegativeButton = ({ children, style, ...props }) => {
   return (
     <Pressable
       {...props}
@@ -34,6 +35,7 @@ export const NegativeButton = ({ children, ...props }) => {
         borderRadius: 10,
         alignItems: "center",
         justifyContent: "center",
+        ...style,
       }}
     >
       <Text
@@ -41,7 +43,6 @@ export const NegativeButton = ({ children, ...props }) => {
           color: "#888888",
           fontSize: 12,
           fontWeight: "600",
-          paddingTop: 10,
         }}
       >
         {children}
@@ -49,3 +50,22 @@ export const NegativeButton = ({ children, ...props }) => {
     </Pressable>
   );
 };
+
+export const ButtonSet = ({ positive, onPositive, negative, onNegative }) => (
+  <View>
+    <PositiveButton
+      onPress={onPositive}
+      style={{
+        marginBottom: negative ? 10 : 25,
+      }}
+    >
+      {positive}
+    </PositiveButton>
+
+    {negative && (
+      <NegativeButton onPress={onNegative} style={{ height: 15 }}>
+        {negative}
+      </NegativeButton>
+    )}
+  </View>
+);

@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { StyleSheet, View, Text, Linking, Dimensions } from "react-native";
-import { PositiveButton, NegativeButton } from "../components/Button";
+import { ButtonSet } from "../components/Button";
 
 const { width } = Dimensions.get("screen");
 
@@ -30,8 +30,8 @@ export const Login = () => {
   };
 
   const screens = {
-    one: <Screen title="ein" action={() => setScreen("two")} />,
-    two: <Screen title="zwei" action={() => setScreen("three")} />,
+    one: <Screen title="ein" action={() => setScreen("two")} negative />,
+    two: <Screen title="zwei" action={() => setScreen("three")} negative />,
     three: <Screen title="drei" action={() => setScreen("one")} />,
   };
 
@@ -71,21 +71,19 @@ export const Login = () => {
   );
 };
 
-export const Screen = ({ title, action }) => {
+export const Screen = ({ title, action, negative }) => {
   return (
     <View style={styles.container}>
       <View>
         <View style={styles.logo} />
         <Text style={styles.title}>{title}</Text>
       </View>
-      <View>
-        <PositiveButton onPress={action}>Get Started</PositiveButton>
-        <NegativeButton
-          onPress={() => Linking.openURL("https://ty.altrazio.com/go/privacy")}
-        >
-          See Privacy Policy
-        </NegativeButton>
-      </View>
+      <ButtonSet
+        positive="Get Started"
+        onPositive={action}
+        negative={negative && "See Privacy Policy"}
+        onNegative={() => Linking.openURL("https://ty.altrazio.com/go/privacy")}
+      />
     </View>
   );
 };
