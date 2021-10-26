@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { View, Dimensions } from "react-native";
 import { Welcome } from "./Welcome";
+import { PhoneLogin } from "./Phone";
 
 const { width } = Dimensions.get("screen");
 
@@ -31,13 +32,13 @@ export const Login = () => {
 
   const screens = {
     welcome: <Welcome setScreen={setScreen} />,
+    phone: <PhoneLogin setScreen={setScreen} />,
   };
 
   return (
     <View
       style={{
         height: "100%",
-        display: "flex",
         flexDirection: "row",
         width: width * 2,
         marginLeft: `-${offset}%`,
