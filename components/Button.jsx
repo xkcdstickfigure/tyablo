@@ -9,7 +9,7 @@ export const PositiveButton = ({ children, style, ...props }) => {
       style={{
         backgroundColor: colors.emerald[500],
         width: 200,
-        height: 50,
+        height: 40,
         borderRadius: 10,
         alignItems: "center",
         justifyContent: "center",
@@ -41,7 +41,7 @@ export const NegativeButton = ({ children, style, ...props }) => {
     >
       <Text
         style={{
-          color: "#888888",
+          color: colors.gray[400],
           fontSize: 12,
           fontWeight: "600",
         }}
@@ -57,14 +57,14 @@ export const ButtonSet = ({ positive, onPositive, negative, onNegative }) => (
     <PositiveButton
       onPress={onPositive}
       style={{
-        marginBottom: negative ? 10 : 25,
+        marginBottom: negative ? 10 : 28,
       }}
     >
       {positive}
     </PositiveButton>
 
     {negative && (
-      <NegativeButton onPress={onNegative} style={{ height: 15 }}>
+      <NegativeButton onPress={onNegative} style={{ height: 18 }}>
         {negative}
       </NegativeButton>
     )}

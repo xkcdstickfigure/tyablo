@@ -115,10 +115,7 @@ export const PhoneLogin = () => {
       </View>
 
       <View style={{ marginTop: 20 }}>
-        <ButtonSet
-          positive="Continue"
-          onPositive={submit}
-        />
+        <ButtonSet positive="Continue" onPositive={submit} />
       </View>
     </View>
   );
