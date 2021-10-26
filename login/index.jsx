@@ -40,6 +40,7 @@ export const Login = () => {
   };
 
   const [loginId, setLoginId] = useState();
+  const [loginCode, setLoginCode] = useState();
 
   return (
     <LoginContext.Provider
@@ -49,6 +50,7 @@ export const Login = () => {
         currentScreen,
         setLoginId,
         loginId,
+        setLoginCode,
       }}
     >
       <KeyboardAvoidingView

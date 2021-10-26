@@ -13,14 +13,14 @@ export const PhoneLogin = () => {
   const { setScreen, sliding, currentScreen, setLoginId } =
     useContext(LoginContext);
   const focused = currentScreen === "phone" && !sliding;
-  const phoneInput = createRef();
+  const input = createRef();
   const [phoneNumber, setPhoneNumber] = useState();
   const [error, setError] = useState();
 
   // Autofocus
   useEffect(() => {
     if (focused) {
-      phoneInput.current.focus();
+      input.current.focus();
     }
   }, [focused]);
 
@@ -88,12 +88,12 @@ export const PhoneLogin = () => {
             alignItems: "center",
           }}
         >
-          <PhoneInput ref={phoneInput} onChange={(n) => setPhoneNumber(n)} />
+          <PhoneInput ref={input} onChange={(n) => setPhoneNumber(n)} />
           <View style={{ marginTop: 10, paddingHorizontal: 10 }}>
-            <Text style={{ textAlign: "center" }}>
+            <Text style={{ textAlign: "center", fontSize: 12 }}>
               We'll send you a verification code over SMS.
             </Text>
-            <Text style={{ textAlign: "center" }}>
+            <Text style={{ textAlign: "center", fontSize: 12 }}>
               By continuing, you're agreeing to our{" "}
               <TextLink to="terms">terms of use</TextLink> and{" "}
               <TextLink to="privacy">privacy policy</TextLink>.
