@@ -1,9 +1,9 @@
 import React from "react";
 import { StyleSheet, Text, Pressable } from "react-native";
 
-export const ImportantButton = ({ children }) => {
+export const ImportantButton = ({ children, ...props }) => {
   return (
-    <Pressable style={styles.button}>
+    <Pressable {...props} style={styles.button}>
       <Text style={styles.text}>{children}</Text>
     </Pressable>
   );

@@ -9,7 +9,7 @@ export const WelcomeScreen = () => {
         <View style={styles.logo} />
         <Text style={styles.title}>tyablo</Text>
       </View>
-      <ImportantButton>Get Started</ImportantButton>
+      <ImportantButton onPress={() => alert("test")}>Get Started</ImportantButton>
     </View>
   );
 };
