@@ -1,12 +1,12 @@
 import React, { useState } from "react";
-import { StyleSheet, View, Text, Linking, Dimensions } from "react-native";
-import { ButtonSet } from "../components/Button";
+import { View, Dimensions } from "react-native";
+import { Welcome } from "./Welcome";
 
 const { width } = Dimensions.get("screen");
 
 export const Login = () => {
   const [oldScreen, setOldScreen] = useState();
-  const [currentScreen, setCurrentScreen] = useState("one");
+  const [currentScreen, setCurrentScreen] = useState("welcome");
   const [sliding, setSliding] = useState(false);
   const [offset, setOffset] = useState(0);
 
@@ -30,9 +30,7 @@ export const Login = () => {
   };
 
   const screens = {
-    one: <Screen title="ein" action={() => setScreen("two")} negative />,
-    two: <Screen title="zwei" action={() => setScreen("three")} negative />,
-    three: <Screen title="drei" action={() => setScreen("one")} />,
+    welcome: <Welcome setScreen={setScreen} />,
   };
 
   return (
@@ -50,6 +48,7 @@ export const Login = () => {
           <View
             key={id}
             style={{
+              width,
               height: "100%",
               position: "absolute",
               top: 0,
@@ -70,43 +69,3 @@ export const Login = () => {
     </View>
   );
 };
-
-export const Screen = ({ title, action, negative }) => {
-  return (
-    <View style={styles.container}>
-      <View>
-        <View style={styles.logo} />
-        <Text style={styles.title}>{title}</Text>
-      </View>
-      <ButtonSet
-        positive="Get Started"
-        onPositive={action}
-        negative={negative && "See Privacy Policy"}
-        onNegative={() => Linking.openURL("https://ty.altrazio.com/go/privacy")}
-      />
-    </View>
-  );
-};
-
-const styles = StyleSheet.create({
-  container: {
-    width,
-    height: "100%",
-    alignItems: "center",
-    justifyContent: "space-between",
-    paddingTop: 100,
-    paddingBottom: 50,
-  },
-  logo: {
-    backgroundColor: "#eeeeee",
-    width: 125,
-    height: 125,
-    borderRadius: 30,
-  },
-  title: {
-    fontSize: 40,
-    paddingTop: 10,
-    letterSpacing: 2.5,
-    textAlign: "center",
-  },
-});
