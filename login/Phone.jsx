@@ -23,6 +23,8 @@ export const PhoneLogin = () => {
   const [phoneNumber, setPhoneNumber] = useState();
   const [error, setError] = useState();
 
+  useEffect(() => console.log("Screen Rendered"), []);
+
   // Autofocus
   useEffect(() => {
     if (focused) {

@@ -7,6 +7,12 @@ import { LoginContext } from "./context";
 
 const { width } = Dimensions.get("screen");
 
+const screens = {
+  welcome: Welcome,
+  phone: PhoneLogin,
+  code: CodeVerify,
+};
+
 export const Login = () => {
   const [oldScreen, setOldScreen] = useState();
   const [currentScreen, setCurrentScreen] = useState("welcome");
@@ -35,12 +41,6 @@ export const Login = () => {
   };
 
   const [loginId, setLoginId] = useState();
-
-  const screens = {
-    welcome: Welcome,
-    phone: (props) => <PhoneLogin {...props} />,
-    code: (props) => <CodeVerify {...props} />,
-  };
 
   return (
     <LoginContext.Provider
