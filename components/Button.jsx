@@ -1,12 +1,13 @@
 import React from "react";
 import { View, Text, Pressable } from "react-native";
+import colors from "../colors";
 
 export const PositiveButton = ({ children, style, ...props }) => {
   return (
     <Pressable
       {...props}
       style={{
-        backgroundColor: "#10b981",
+        backgroundColor: colors.emerald[500],
         width: 200,
         height: 50,
         borderRadius: 10,
