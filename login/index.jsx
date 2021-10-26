@@ -5,7 +5,7 @@ import { PhoneLogin } from "./Phone";
 import { CodeVerify } from "./Code";
 import { LoginContext } from "./context";
 
-const { width } = Dimensions.get("screen");
+const { width } = Dimensions.get("window");
 
 const screens = {
   welcome: Welcome,
