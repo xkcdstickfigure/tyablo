@@ -90,7 +90,12 @@ export const PhoneLogin = ({ focused }) => {
             alignItems: "center",
           }}
         >
-          <PhoneInput ref={phoneInput} onChange={(n) => setPhoneNumber(n)} />
+          <PhoneInput
+            ref={phoneInput}
+            onChange={(n) =>
+              setPhoneNumber(n.startsWith("0") ? n.substr(1) : n)
+            }
+          />
           <View style={{ marginTop: 10, paddingHorizontal: 10 }}>
             <Text style={{ textAlign: "center" }}>
               We'll send you a verification code over SMS.
