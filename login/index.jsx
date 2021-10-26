@@ -31,9 +31,11 @@ export const Login = () => {
     }, 10);
   };
 
+  const [loginId, setLoginId] = useState();
+
   const screens = {
     welcome: Welcome,
-    phone: PhoneLogin,
+    phone: (props) => <PhoneLogin {...props} setLoginId={setLoginId} />,
   };
 
   return (

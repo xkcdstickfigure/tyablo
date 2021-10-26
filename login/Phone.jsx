@@ -14,7 +14,7 @@ import colors from "../colors";
 import { API } from "../config";
 import axios from "axios";
 
-export const PhoneLogin = ({ focused }) => {
+export const PhoneLogin = ({ focused, setLoginId }) => {
   const phoneInput = createRef();
   const [phoneNumber, setPhoneNumber] = useState();
   const [error, setError] = useState();
@@ -30,6 +30,7 @@ export const PhoneLogin = ({ focused }) => {
   const submit = () => {
     Keyboard.dismiss();
     if (!phoneNumber) return;
+    console.log(phoneNumber);
 
     axios
       .post(
@@ -42,7 +43,7 @@ export const PhoneLogin = ({ focused }) => {
         }
       )
       .then(({ data }) => {
-        console.log(data);
+        setLoginId(data.id);
       })
       .catch(({ response }) => {
         const err = response?.data;
