@@ -9,8 +9,7 @@ export const Welcome = ({ setScreen }) => {
         height: "100%",
         alignItems: "center",
         justifyContent: "space-between",
-        paddingTop: 100,
-        paddingBottom: 50,
+        paddingTop: 50,
       }}
     >
       <View>

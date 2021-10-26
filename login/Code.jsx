@@ -8,7 +8,6 @@ export const CodeVerify = () => {
         height: "100%",
         alignItems: "center",
         justifyContent: "space-between",
-        paddingVertical: 50,
       }}
     >
       <Text>abc</Text>

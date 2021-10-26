@@ -59,6 +59,7 @@ export const Login = () => {
               width,
               height: "100%",
               paddingHorizontal: 10,
+              paddingVertical: 50,
               position: "absolute",
               top: 0,
               left:

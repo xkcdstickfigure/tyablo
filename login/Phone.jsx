@@ -61,7 +61,6 @@ export const PhoneLogin = ({ focused, setScreen, setLoginId }) => {
         height: "100%",
         alignItems: "center",
         justifyContent: "space-between",
-        paddingVertical: 50,
       }}
     >
       <View>
