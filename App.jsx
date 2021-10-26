@@ -1,9 +1,9 @@
 import React from "react";
-import { WelcomeScreen } from "./screens/Welcome";
+import { Login } from "./login";
 
 export const App = () => {
   return (
-    <WelcomeScreen />
+    <Login />
   );
 };
 
