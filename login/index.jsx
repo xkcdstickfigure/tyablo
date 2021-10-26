@@ -20,7 +20,6 @@ export const Login = () => {
   const [offset, setOffset] = useState(0);
 
   const setScreen = (name) => {
-    console.log(name);
     setOldScreen(currentScreen);
     setCurrentScreen(name);
     setSliding(true);
