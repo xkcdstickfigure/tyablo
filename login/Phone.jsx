@@ -1,4 +1,4 @@
-import React, { useState, useEffect, createRef } from "react";
+import React, { useState, useEffect, createRef, useContext } from "react";
 import {
   KeyboardAvoidingView,
   Keyboard,
@@ -10,11 +10,15 @@ import { ButtonSet } from "../components/Button";
 import { PhoneInput } from "../components/PhoneInput";
 import { TextLink } from "../components/TextLink";
 import colors from "../colors";
+import { LoginContext } from "./context";
 
 import { API } from "../config";
 import axios from "axios";
 
-export const PhoneLogin = ({ focused, setScreen, setLoginId }) => {
+export const PhoneLogin = () => {
+  const { setScreen, sliding, currentScreen, setLoginId } =
+    useContext(LoginContext);
+  const focused = currentScreen === "phone" && !sliding;
   const phoneInput = createRef();
   const [phoneNumber, setPhoneNumber] = useState();
   const [error, setError] = useState();

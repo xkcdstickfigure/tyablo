@@ -3,6 +3,7 @@ import { View, Dimensions } from "react-native";
 import { Welcome } from "./Welcome";
 import { PhoneLogin } from "./Phone";
 import { CodeVerify } from "./Code";
+import { LoginContext } from "./context";
 
 const { width } = Dimensions.get("screen");
 
@@ -37,48 +38,55 @@ export const Login = () => {
 
   const screens = {
     welcome: Welcome,
-    phone: (props) => <PhoneLogin {...props} setLoginId={setLoginId} />,
-    code: (props) => <CodeVerify {...props} loginId={loginId} />,
+    phone: (props) => <PhoneLogin {...props} />,
+    code: (props) => <CodeVerify {...props} />,
   };
 
   return (
-    <View
-      style={{
-        height: "100%",
-        flexDirection: "row",
-        width: width * 2,
-        marginLeft: `-${offset}%`,
+    <LoginContext.Provider
+      value={{
+        setScreen,
+        sliding,
+        currentScreen,
+        setLoginId,
+        loginId,
       }}
     >
-      {Object.keys(screens).map((id) => {
-        const Screen = screens[id];
-        return id === currentScreen || id === oldScreen ? (
-          <View
-            key={id}
-            style={{
-              width,
-              height: "100%",
-              paddingHorizontal: 10,
-              paddingVertical: 50,
-              position: "absolute",
-              top: 0,
-              left:
-                id === currentScreen
-                  ? sliding
-                    ? width
-                    : 0
-                  : sliding
-                  ? 0
-                  : width,
-            }}
-          >
-            <Screen
-              setScreen={setScreen}
-              focused={id === currentScreen && !sliding}
-            />
-          </View>
-        ) : null;
-      })}
-    </View>
+      <View
+        style={{
+          height: "100%",
+          flexDirection: "row",
+          width: width * 2,
+          marginLeft: `-${offset}%`,
+        }}
+      >
+        {Object.keys(screens).map((id) => {
+          const Screen = screens[id];
+          return id === currentScreen || id === oldScreen ? (
+            <View
+              key={id}
+              style={{
+                width,
+                height: "100%",
+                paddingHorizontal: 10,
+                paddingVertical: 50,
+                position: "absolute",
+                top: 0,
+                left:
+                  id === currentScreen
+                    ? sliding
+                      ? width
+                      : 0
+                    : sliding
+                    ? 0
+                    : width,
+              }}
+            >
+              <Screen />
+            </View>
+          ) : null;
+        })}
+      </View>
+    </LoginContext.Provider>
   );
 };

@@ -1,8 +1,11 @@
-import React from "react";
+import React, { useContext } from "react";
 import { View, Text } from "react-native";
 import { ButtonSet } from "../components/Button";
+import { LoginContext } from "./context";
 
-export const Welcome = ({ setScreen }) => {
+export const Welcome = () => {
+  const { setScreen } = useContext(LoginContext);
+
   return (
     <View
       style={{
