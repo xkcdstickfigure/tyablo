@@ -20,10 +20,9 @@ const PositiveButtonStyles = StyleSheet.create({
   },
   text: {
     color: "#ffffff",
-    fontSize: 20
-  }
+    fontSize: 20,
+  },
 });
-
 
 export const NegativeButton = ({ children, ...props }) => {
   return (
@@ -43,6 +42,6 @@ const NegativeButtonStyles = StyleSheet.create({
     color: "#888888",
     fontSize: 12,
     fontWeight: "600",
-    paddingTop: 10
-  }
+    paddingTop: 10,
+  },
 });

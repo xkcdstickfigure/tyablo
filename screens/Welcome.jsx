@@ -10,8 +10,14 @@ export const WelcomeScreen = () => {
         <Text style={styles.title}>tyablo</Text>
       </View>
       <View>
-        <PositiveButton onPress={() => alert("test")}>Get Started</PositiveButton>
-        <NegativeButton onPress={() => Linking.openURL("https://ty.altrazio.com/go/privacy")}>See Privacy Policy</NegativeButton>
+        <PositiveButton onPress={() => alert("test")}>
+          Get Started
+        </PositiveButton>
+        <NegativeButton
+          onPress={() => Linking.openURL("https://ty.altrazio.com/go/privacy")}
+        >
+          See Privacy Policy
+        </NegativeButton>
       </View>
     </View>
   );
@@ -24,17 +30,17 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "space-between",
     paddingTop: 100,
-    paddingBottom: 50
+    paddingBottom: 50,
   },
   logo: {
     backgroundColor: "#eeeeee",
     width: 125,
     height: 125,
-    borderRadius: 30
+    borderRadius: 30,
   },
   title: {
     fontSize: 40,
     paddingTop: 10,
-    letterSpacing: 2.5
+    letterSpacing: 2.5,
   },
 });

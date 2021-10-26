@@ -6,7 +6,7 @@
     "ios": "expo start --ios",
     "web": "expo start --web",
     "eject": "expo eject",
-    "format": "prettier --write \"**/*.+(js|json)\""
+    "format": "prettier --write \"**/*.+(js|jsx|json)\""
   },
   "dependencies": {
     "expo": "~43.0.0",
