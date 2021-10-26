@@ -25,6 +25,7 @@ export const Login = () => {
       if (o >= 100) {
         setOffset(0);
         setSliding(false);
+        setOldScreen(null);
         clearInterval(i);
       } else setOffset(o);
     }, 10);
