@@ -38,8 +38,9 @@ export const PhoneInput = forwardRef(({ onChange, ...props }, ref) => {
           ref={ref}
           value={value}
           onChange={({ nativeEvent: e }) => {
-            const v = e.text.replace(/\D/g, "");
+            let v = e.text.replace(/\D/g, "");
             setValue(v);
+            if (v.startsWith("0")) v = v.substr(1);
             if (onChange) onChange("44" + v);
           }}
           placeholder="7725872946"
