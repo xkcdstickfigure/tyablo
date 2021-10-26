@@ -1,7 +1,9 @@
-import React, { forwardRef } from "react";
+import React, { forwardRef, useState } from "react";
 import { View, Text, TextInput } from "react-native";
 
-export const PhoneInput = forwardRef(({ ...props }, ref) => {
+export const PhoneInput = forwardRef(({ onChange, ...props }, ref) => {
+  const [value, setValue] = useState();
+
   return (
     <View
       style={{
@@ -34,6 +36,12 @@ export const PhoneInput = forwardRef(({ ...props }, ref) => {
       <View style={{ flexGrow: 1, flexShrink: 1 }}>
         <TextInput
           ref={ref}
+          value={value}
+          onChange={({ nativeEvent: e }) => {
+            const v = e.text.replace(/\D/g, "");
+            setValue(v);
+            if (onChange) onChange("44" + v);
+          }}
           placeholder="7725872946"
           dataDetectorTypes="phoneNumber"
           autoComplete="tel"

@@ -1,4 +1,4 @@
-import React, { useEffect, createRef } from "react";
+import React, { useState, useEffect, createRef } from "react";
 import { KeyboardAvoidingView, Platform, View, Text } from "react-native";
 import { ButtonSet } from "../components/Button";
 import { PhoneInput } from "../components/PhoneInput";
@@ -6,12 +6,19 @@ import { TextLink } from "../components/TextLink";
 
 export const PhoneLogin = ({ focused }) => {
   const phoneInput = createRef();
+  const [phoneNumber, setPhoneNumber] = useState();
 
+  // Autofocus
   useEffect(() => {
     if (focused) {
       phoneInput.current.focus();
     }
   }, [focused]);
+
+  // Submit
+  const submit = () => {
+    console.log(phoneNumber);
+  };
 
   return (
     <View
@@ -49,7 +56,7 @@ export const PhoneLogin = ({ focused }) => {
             alignItems: "center",
           }}
         >
-          <PhoneInput ref={phoneInput} />
+          <PhoneInput ref={phoneInput} onChange={(n) => setPhoneNumber(n)} />
           <View style={{ marginTop: 10, paddingHorizontal: 10 }}>
             <Text style={{ textAlign: "center" }}>
               We'll send you a verification code over SMS.
@@ -67,7 +74,7 @@ export const PhoneLogin = ({ focused }) => {
         style={{ marginTop: 20 }}
         behavior={Platform.OS === "ios" ? "padding" : "height"}
       >
-        <ButtonSet positive="Continue" onPositive={() => {}} />
+        <ButtonSet positive="Continue" onPositive={submit} />
       </KeyboardAvoidingView>
     </View>
   );
