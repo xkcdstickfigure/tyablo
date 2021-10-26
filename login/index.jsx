@@ -20,7 +20,7 @@ export const Login = () => {
     let ov = 0;
 
     const i = setInterval(() => {
-      ov += 0.5;
+      ov += 1;
       o += ov;
       if (o >= 100) {
         setOffset(0);
@@ -28,7 +28,7 @@ export const Login = () => {
         setOldScreen(null);
         clearInterval(i);
       } else setOffset(o);
-    }, 10);
+    }, 20);
   };
 
   const [loginId, setLoginId] = useState();
