@@ -65,7 +65,7 @@ export const PhoneLogin = () => {
         <View>
           <Text
             style={{
-              fontSize: 40,
+              fontSize: 30,
               textAlign: "center",
               marginBottom: 10,
             }}
