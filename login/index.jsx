@@ -36,7 +36,7 @@ export const Login = () => {
   return (
     <View
       style={{
-        flex: 1,
+        height: "100%",
         display: "flex",
         flexDirection: "row",
         width: width * 2,
@@ -48,6 +48,7 @@ export const Login = () => {
           <View
             key={id}
             style={{
+              height: "100%",
               position: "absolute",
               top: 0,
               left:
@@ -90,6 +91,7 @@ export const Screen = ({ title, action }) => {
 const styles = StyleSheet.create({
   container: {
     width,
+    height: "100%",
     alignItems: "center",
     justifyContent: "space-between",
     paddingTop: 100,
@@ -105,5 +107,6 @@ const styles = StyleSheet.create({
     fontSize: 40,
     paddingTop: 10,
     letterSpacing: 2.5,
+    textAlign: "center",
   },
 });
