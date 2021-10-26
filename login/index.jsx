@@ -3,7 +3,6 @@ import { StyleSheet, View, Text, Linking, Dimensions } from "react-native";
 import { PositiveButton, NegativeButton } from "../components/Button";
 
 const { width } = Dimensions.get("screen");
-console.log(width);
 
 export const Login = () => {
   const [oldScreen, setOldScreen] = useState();
