@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { View } from "react-native";
 import { AppContext } from "./context";
 import { fetchContext } from "./util/fetchContext";
 import * as SecureStore from "expo-secure-store";
@@ -8,10 +9,10 @@ import { API } from "./config";
 import axios from "axios";
 
 import { Login } from "./login";
-import { Text } from "react-native";
+import { Homepage } from "./pages/Homepage";
 
 const pages = {
-  home: () => <Text style={{ fontSize: 50 }}>this is the homepage</Text>,
+  home: Homepage,
 };
 
 export const App = () => {
@@ -100,7 +101,9 @@ export const App = () => {
         pageParam,
       }}
     >
-      {!loading && (signedIn ? context && <Page /> : <Login />)}
+      <View style={{ height: "100%", backgroundColor: "#ffffff" }}>
+        {!loading && (signedIn ? context && <Page /> : <Login />)}
+      </View>
     </AppContext.Provider>
   );
 };
