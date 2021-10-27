@@ -63,7 +63,7 @@ export const Homepage = () => {
             style={{
               flexDirection: "row",
               alignItems: "center",
-              marginHorizontal: 12,
+              marginLeft: 12,
             }}
           >
             <IconButton icon={Plus} onPress={() => setPostEditor(true)} />
