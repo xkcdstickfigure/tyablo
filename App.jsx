@@ -1,7 +1,11 @@
 import React, { useState, useEffect } from "react";
 import { AppContext } from "./context";
-import * as SecureStore from "expo-secure-store";
 import { fetchContext } from "./util/fetchContext";
+import * as SecureStore from "expo-secure-store";
+import * as Location from "expo-location";
+
+import { API } from "./config";
+import axios from "axios";
 
 import { Login } from "./login";
 import { Text } from "react-native";
@@ -18,12 +22,6 @@ export const App = () => {
   const [loading, setLoading] = useState(true);
   const [page, setPage] = useState("home");
   const [pageParam, setPageParam] = useState();
-
-  // Page Navigation
-  const setPage2 = (id, param) => {
-    setPage(id);
-    setPageParam(param);
-  };
 
   // Load Token
   useEffect(async () => {
@@ -49,7 +47,42 @@ export const App = () => {
     }
   }, [token, page, signedIn]);
 
+  // Location
+  useEffect(() => {
+    const updateLocation = async () => {
+      try {
+        const perm = await Location.getForegroundPermissionsAsync();
+        if (perm.granted) {
+          const pos = await Location.getCurrentPositionAsync();
+          axios
+            .post(
+              `${API}/location`,
+              {
+                lat: pos.coords.latitude,
+                lon: pos.coords.longitude,
+              },
+              {
+                headers: {
+                  Authorization: `Bearer ${token}`,
+                },
+              }
+            )
+            .catch(() => {});
+        }
+      } catch (err) {}
+    };
+
+    updateLocation();
+    const i = setInterval(updateLocation, 20000);
+    return () => clearInterval(i);
+  }, []);
+
+  // Page Navigation
   const Page = pages[page];
+  const setPage2 = (id, param) => {
+    setPage(id);
+    setPageParam(param);
+  };
 
   return (
     <AppContext.Provider
