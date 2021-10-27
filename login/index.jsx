@@ -5,6 +5,7 @@ import { PhoneLogin } from "./Phone";
 import { CodeVerify } from "./Code";
 import { Register } from "./Register";
 import { LocationPrompt } from "./Location";
+import { DiscoverablePrompt } from "./Discoverable";
 import { AppContext, LoginContext } from "../context";
 import * as Location from "expo-location";
 
@@ -19,6 +20,7 @@ const screens = {
   code: CodeVerify,
   register: Register,
   location: LocationPrompt,
+  discoverable: DiscoverablePrompt,
 };
 
 export const Login = () => {
@@ -64,8 +66,8 @@ export const Login = () => {
           Authorization: `Bearer ${data.token}`,
         },
       })
-      .then(async ({ data }) => {
-        setContext(data);
+      .then(async ({ data: context }) => {
+        setContext(context);
 
         // Location Prompt
         const locationPermission =
@@ -76,6 +78,7 @@ export const Login = () => {
             locationPermission.canAskAgain)
         )
           setScreen("location");
+        else if (!context.user.discoverable) setScreen("discoverable");
         else setSignedIn(true);
       })
       .catch(() => {
