@@ -39,7 +39,7 @@ export const CodeVerify = () => {
           device: deviceInfo,
         },
         {
-          timeout: 1000,
+          timeout: 5000,
         }
       )
       .then(({ data }) => onLogin(data))

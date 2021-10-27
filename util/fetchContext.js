@@ -7,7 +7,7 @@ export const fetchContext = async (token) => {
       headers: {
         Authorization: `Bearer ${token}`,
       },
-      timeout: 2000,
+      timeout: 5000,
     });
     return data;
   } catch (err) {
