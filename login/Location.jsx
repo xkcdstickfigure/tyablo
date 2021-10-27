@@ -2,11 +2,12 @@ import React, { useContext } from "react";
 import { View, Text, Linking } from "react-native";
 import { ButtonSet } from "../components/Button";
 import { MapPin } from "react-native-feather";
-import { LoginContext } from "../context";
+import { AppContext, LoginContext } from "../context";
 import { SERVER } from "../config";
 import * as Location from "expo-location";
 
 export const LocationPrompt = () => {
+  const { context, setSignedIn } = useContext(AppContext);
   const { setScreen } = useContext(LoginContext);
 
   return (
@@ -51,7 +52,8 @@ export const LocationPrompt = () => {
         positive="Enable Location"
         onPositive={async () => {
           await Location.requestForegroundPermissionsAsync();
-          setScreen("welcome");
+          if (context.user.discoverable) setSignedIn(true);
+          else setScreen("discoverable");
         }}
         negative="See Privacy Policy"
         onNegative={() => Linking.openURL(`${SERVER}/go/privacy`)}
