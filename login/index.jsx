@@ -8,9 +8,7 @@ import { LocationPrompt } from "./Location";
 import { DiscoverablePrompt } from "./Discoverable";
 import { AppContext, LoginContext } from "../context";
 import * as Location from "expo-location";
-
-import { API } from "../config";
-import axios from "axios";
+import { fetchContext } from "../util/fetchContext";
 
 const { width } = Dimensions.get("window");
 
@@ -55,35 +53,26 @@ export const Login = () => {
   const [loginId, setLoginId] = useState();
   const [loginCode, setLoginCode] = useState();
 
-  const onLogin = (data) => {
+  const onLogin = async (data) => {
     setToken(data.token);
     setNewUser(data.new);
 
     // Request User Context
-    axios
-      .get(`${API}/context`, {
-        headers: {
-          Authorization: `Bearer ${data.token}`,
-        },
-      })
-      .then(async ({ data: context }) => {
-        setContext(context);
+    const context = await fetchContext(data.token);
+    if (context) {
+      setContext(context);
 
-        // Location Prompt
-        const locationPermission =
-          await Location.getForegroundPermissionsAsync();
-        if (
-          locationPermission.status === "undetermined" ||
-          (locationPermission.status === "denied" &&
-            locationPermission.canAskAgain)
-        )
-          setScreen("location");
-        else if (!context.user.discoverable) setScreen("discoverable");
-        else setSignedIn(true);
-      })
-      .catch(() => {
-        setScreen("welcome");
-      });
+      // Location Prompt
+      const locationPermission = await Location.getForegroundPermissionsAsync();
+      if (
+        locationPermission.status === "undetermined" ||
+        (locationPermission.status === "denied" &&
+          locationPermission.canAskAgain)
+      )
+        setScreen("location");
+      else if (!context.user.discoverable) setScreen("discoverable");
+      else setSignedIn(true);
+    } else setScreen("welcome");
   };
 
   return (
