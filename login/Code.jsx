@@ -92,11 +92,9 @@ export const CodeVerify = () => {
               letterSpacing: 8,
             }}
           />
-          <View style={{ marginTop: 10, paddingHorizontal: 10 }}>
-            <Text style={{ textAlign: "center", fontSize: 12 }}>
-              Check your texts - it could take a minute or so
-            </Text>
-          </View>
+          <Text style={{ textAlign: "center", fontSize: 12, marginTop: 10 }}>
+            Check your texts - it could take a minute or so
+          </Text>
 
           {error && (
             <Text

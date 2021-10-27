@@ -89,16 +89,14 @@ export const PhoneLogin = () => {
           }}
         >
           <PhoneInput ref={input} onChange={(n) => setPhoneNumber(n)} />
-          <View style={{ marginTop: 10, paddingHorizontal: 10 }}>
-            <Text style={{ textAlign: "center", fontSize: 12 }}>
-              We'll send you a verification code over SMS.
-            </Text>
-            <Text style={{ textAlign: "center", fontSize: 12 }}>
-              By continuing, you're agreeing to our{" "}
-              <TextLink to="terms">terms of use</TextLink> and{" "}
-              <TextLink to="privacy">privacy policy</TextLink>.
-            </Text>
-          </View>
+          <Text style={{ marginTop: 10, textAlign: "center", fontSize: 12 }}>
+            We'll send you a verification code over SMS.
+          </Text>
+          <Text style={{ textAlign: "center", fontSize: 12 }}>
+            By continuing, you're agreeing to our{" "}
+            <TextLink to="terms">terms of use</TextLink> and{" "}
+            <TextLink to="privacy">privacy policy</TextLink>.
+          </Text>
 
           {error && (
             <Text

@@ -4,7 +4,9 @@ import { Welcome } from "./Welcome";
 import { PhoneLogin } from "./Phone";
 import { CodeVerify } from "./Code";
 import { Register } from "./Register";
+import { LocationPrompt } from "./Location";
 import { LoginContext } from "./context";
+import * as Location from "expo-location";
 
 const { width } = Dimensions.get("window");
 
@@ -13,6 +15,7 @@ const screens = {
   phone: PhoneLogin,
   code: CodeVerify,
   register: Register,
+  location: LocationPrompt,
 };
 
 export const Login = () => {
@@ -44,8 +47,14 @@ export const Login = () => {
   const [loginId, setLoginId] = useState();
   const [loginCode, setLoginCode] = useState();
 
-  const onLogin = (data) => {
-    alert(data.token);
+  const onLogin = async (data) => {
+    const locationPermission = await Location.getForegroundPermissionsAsync();
+    if (
+      locationPermission.status === "undetermined" ||
+      (locationPermission.status === "denied" && locationPermission.canAskAgain)
+    )
+      setScreen("location");
+    else alert("ready");
   };
 
   return (
