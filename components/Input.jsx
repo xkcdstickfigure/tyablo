@@ -7,7 +7,7 @@ export const Input = forwardRef(({ style, ...props }, ref) => (
     ref={ref}
     style={{
       height: 40,
-      width: 250,
+      width: "100%",
       borderWidth: 1,
       borderColor: colors.gray[200],
       borderRadius: 10,
