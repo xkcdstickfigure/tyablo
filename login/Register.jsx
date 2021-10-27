@@ -4,6 +4,7 @@ import { ButtonSet } from "../components/Button";
 import { Input } from "../components/Input";
 import colors from "../colors";
 import { LoginContext } from "../context";
+import deviceInfo from "../util/deviceInfo";
 
 import { API } from "../config";
 import axios from "axios";
@@ -35,6 +36,7 @@ export const Register = () => {
           id: loginId,
           code: loginCode,
           name: username.trim(),
+          device: deviceInfo,
         },
         {
           timeout: 1000,
