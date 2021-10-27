@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import { View, Text, Image } from "react-native";
 import colors from "../colors";
 import { AppContext } from "../context";
@@ -6,6 +6,7 @@ import { Plus } from "react-native-feather";
 
 export const Homepage = () => {
   const { context } = useContext(AppContext);
+  const [postEditor, setPostEditor] = useState(false);
 
   return (
     <View
@@ -66,6 +67,7 @@ export const Homepage = () => {
             }}
           >
             <Plus
+              onPress={() => setPostEditor(true)}
               style={{
                 width: 20,
                 height: 20,
@@ -75,6 +77,32 @@ export const Homepage = () => {
           </View>
         </View>
       </View>
+
+      {postEditor && <PostEditor />}
+    </View>
+  );
+};
+
+const PostEditor = () => {
+  return (
+    <View
+      style={{
+        position: "absolute",
+        bottom: 0,
+        backgroundColor: "#ffffff",
+        width: "100%",
+        height: 200,
+        borderTopWidth: 1,
+        borderLeftWidth: 1,
+        borderRightWidth: 1,
+        borderColor: colors.gray[200],
+        borderTopRightRadius: 10,
+        borderTopLeftRadius: 10,
+        paddingHorizontal: 20,
+        paddingVertical: 15,
+      }}
+    >
+      <Text>Create New Post</Text>
     </View>
   );
 };
