@@ -103,10 +103,10 @@ export const App = () => {
       }}
     >
       <View style={{ height: "100%", backgroundColor: "#ffffff" }}>
-      <KeyboardAvoidingView
-        behavior={Platform.OS === "ios" ? "padding" : "height"}
-      >
-        {!loading && (signedIn ? context && <Page /> : <Login />)}
+        <KeyboardAvoidingView
+          behavior={Platform.OS === "ios" ? "padding" : "height"}
+        >
+          {!loading && (signedIn ? context && <Page /> : <Login />)}
         </KeyboardAvoidingView>
       </View>
     </AppContext.Provider>
