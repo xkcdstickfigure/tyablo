@@ -7,7 +7,7 @@ import { Login } from "./login";
 import { Text } from "react-native";
 
 const pages = {
-  home: () => <Text>this is the homepage</Text>,
+  home: () => <Text style={{ fontSize: 50 }}>this is the homepage</Text>,
 };
 
 export const App = () => {
