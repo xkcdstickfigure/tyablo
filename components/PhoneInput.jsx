@@ -11,7 +11,7 @@ export const PhoneInput = forwardRef(({ onChange, ...props }, ref) => {
         height: 40,
         width: 250,
         borderWidth: 1,
-        borderColor: colors.gray[400],
+        borderColor: colors.gray[200],
         borderRadius: 10,
         flexDirection: "row",
       }}
@@ -24,7 +24,7 @@ export const PhoneInput = forwardRef(({ onChange, ...props }, ref) => {
         <View
           style={{
             borderRightWidth: 1,
-            borderColor: colors.gray[400],
+            borderColor: colors.gray[200],
             paddingHorizontal: 5,
             width: 70,
             height: 25,

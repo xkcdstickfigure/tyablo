@@ -9,7 +9,7 @@ export const Input = forwardRef(({ style, ...props }, ref) => (
       height: 40,
       width: 250,
       borderWidth: 1,
-      borderColor: colors.gray[400],
+      borderColor: colors.gray[200],
       borderRadius: 10,
       flexDirection: "row",
       paddingHorizontal: 10,
