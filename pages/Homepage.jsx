@@ -20,6 +20,8 @@ export const Homepage = () => {
           paddingTop: 35,
           paddingHorizontal: 10,
           paddingBottom: 10,
+          borderBottomWidth: 1,
+          borderColor: colors.gray[200],
         }}
       >
         <View
