@@ -48,7 +48,7 @@ export const PhoneInput = forwardRef(({ onChange, ...props }, ref) => {
           dataDetectorTypes="phoneNumber"
           autoComplete="tel"
           keyboardType="number-pad"
-          maxLength={16}
+          maxLength={12}
           style={{
             width: "100%",
             flexGrow: 1,
