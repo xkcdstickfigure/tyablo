@@ -51,6 +51,7 @@ export const App = () => {
   // Location
   useEffect(() => {
     const updateLocation = async () => {
+      if (!token) return;
       try {
         const perm = await Location.getForegroundPermissionsAsync();
         if (perm.granted) {
@@ -76,7 +77,7 @@ export const App = () => {
     updateLocation();
     const i = setInterval(updateLocation, 20000);
     return () => clearInterval(i);
-  }, []);
+  }, [token]);
 
   // Page Navigation
   const Page = pages[page];
