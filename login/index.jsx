@@ -1,12 +1,15 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { View, Dimensions, KeyboardAvoidingView } from "react-native";
 import { Welcome } from "./Welcome";
 import { PhoneLogin } from "./Phone";
 import { CodeVerify } from "./Code";
 import { Register } from "./Register";
 import { LocationPrompt } from "./Location";
-import { LoginContext } from "./context";
+import { AppContext, LoginContext } from "../context";
 import * as Location from "expo-location";
+
+import { API } from "../config";
+import axios from "axios";
 
 const { width } = Dimensions.get("window");
 
@@ -19,6 +22,9 @@ const screens = {
 };
 
 export const Login = () => {
+  const { setToken, setNewUser, setContext, setSignedIn } =
+    useContext(AppContext);
+
   const [oldScreen, setOldScreen] = useState();
   const [currentScreen, setCurrentScreen] = useState("welcome");
   const [sliding, setSliding] = useState(false);
@@ -47,14 +53,34 @@ export const Login = () => {
   const [loginId, setLoginId] = useState();
   const [loginCode, setLoginCode] = useState();
 
-  const onLogin = async (data) => {
-    const locationPermission = await Location.getForegroundPermissionsAsync();
-    if (
-      locationPermission.status === "undetermined" ||
-      (locationPermission.status === "denied" && locationPermission.canAskAgain)
-    )
-      setScreen("location");
-    else alert("ready");
+  const onLogin = (data) => {
+    setToken(data.token);
+    setNewUser(data.new);
+
+    // Request User Context
+    axios
+      .get(`${API}/context`, {
+        headers: {
+          Authorization: `Bearer ${data.token}`,
+        },
+      })
+      .then(async ({ data }) => {
+        setContext(data);
+
+        // Location Prompt
+        const locationPermission =
+          await Location.getForegroundPermissionsAsync();
+        if (
+          locationPermission.status === "undetermined" ||
+          (locationPermission.status === "denied" &&
+            locationPermission.canAskAgain)
+        )
+          setScreen("location");
+        else setSignedIn(true);
+      })
+      .catch(() => {
+        setScreen("welcome");
+      });
   };
 
   return (

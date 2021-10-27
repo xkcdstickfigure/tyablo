@@ -3,7 +3,7 @@ import { Keyboard, View, Text } from "react-native";
 import { ButtonSet } from "../components/Button";
 import { Input } from "../components/Input";
 import colors from "../colors";
-import { LoginContext } from "./context";
+import { LoginContext } from "../context";
 
 import { API } from "../config";
 import axios from "axios";

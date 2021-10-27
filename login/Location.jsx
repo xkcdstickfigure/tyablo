@@ -1,7 +1,7 @@
 import React, { useContext } from "react";
 import { View, Text, Linking } from "react-native";
 import { ButtonSet } from "../components/Button";
-import { LoginContext } from "./context";
+import { LoginContext } from "../context";
 import { MapPin } from "react-native-feather";
 import { SERVER } from "../config";
 import * as Location from "expo-location";

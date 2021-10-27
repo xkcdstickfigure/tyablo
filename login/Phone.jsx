@@ -4,7 +4,7 @@ import { ButtonSet } from "../components/Button";
 import { PhoneInput } from "../components/PhoneInput";
 import { TextLink } from "../components/TextLink";
 import colors from "../colors";
-import { LoginContext } from "./context";
+import { LoginContext } from "../context";
 
 import { API } from "../config";
 import axios from "axios";
