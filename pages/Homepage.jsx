@@ -1,5 +1,5 @@
 import React, { useContext, useState } from "react";
-import { View, Text, Image } from "react-native";
+import { View, Text, Image, Pressable } from "react-native";
 import colors from "../colors";
 import { AppContext } from "../context";
 import { Plus } from "react-native-feather";
@@ -66,14 +66,7 @@ export const Homepage = () => {
               marginHorizontal: 12,
             }}
           >
-            <Plus
-              onPress={() => setPostEditor(true)}
-              style={{
-                width: 20,
-                height: 20,
-                color: colors.gray[600],
-              }}
-            />
+            <IconButton icon={Plus} onPress={() => setPostEditor(true)} />
           </View>
         </View>
       </View>
@@ -82,6 +75,23 @@ export const Homepage = () => {
     </View>
   );
 };
+
+const IconButton = ({ icon: Icon, ...props }) => (
+  <Pressable
+    style={{
+      padding: 5,
+    }}
+    {...props}
+  >
+    <Icon
+      style={{
+        width: 20,
+        height: 20,
+        color: colors.gray[600],
+      }}
+    />
+  </Pressable>
+);
 
 const PostEditor = () => {
   return (
