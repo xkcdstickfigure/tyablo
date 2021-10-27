@@ -8,7 +8,7 @@ export const PositiveButton = ({ children, style, ...props }) => {
       {...props}
       style={{
         backgroundColor: colors.emerald[500],
-        width: 200,
+        width: "100%",
         height: 40,
         borderRadius: 10,
         alignItems: "center",
@@ -33,7 +33,7 @@ export const NegativeButton = ({ children, style, ...props }) => {
     <Pressable
       {...props}
       style={{
-        borderRadius: 10,
+        width: "100%",
         alignItems: "center",
         justifyContent: "center",
         ...style,
@@ -52,8 +52,21 @@ export const NegativeButton = ({ children, style, ...props }) => {
   );
 };
 
-export const ButtonSet = ({ positive, onPositive, negative, onNegative }) => (
-  <View>
+export const ButtonSet = ({
+  positive,
+  onPositive,
+  negative,
+  onNegative,
+  style,
+  ...props
+}) => (
+  <View
+    style={{
+      alignItems: "center",
+      ...style,
+    }}
+    {...props}
+  >
     <PositiveButton
       onPress={onPositive}
       style={{

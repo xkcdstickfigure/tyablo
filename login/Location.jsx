@@ -48,7 +48,9 @@ export const LocationPrompt = () => {
           Press "Allow" when your phone asks.
         </Text>
       </View>
+
       <ButtonSet
+        style={{ width: 200 }}
         positive="Enable Location"
         onPositive={async () => {
           await Location.requestForegroundPermissionsAsync();

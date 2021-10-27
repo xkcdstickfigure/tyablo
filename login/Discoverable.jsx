@@ -48,7 +48,9 @@ export const DiscoverablePrompt = () => {
           may want to leave this off.
         </Text>
       </View>
+
       <ButtonSet
+        style={{ width: 200 }}
         positive="Sure!"
         onPositive={async () => {
           axios

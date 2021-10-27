@@ -103,14 +103,16 @@ export const Register = () => {
         </View>
       </View>
 
-      <View style={{ marginTop: 20 }}>
-        <ButtonSet
-          positive="Sign Up"
-          onPositive={submit}
-          negative="Start Again"
-          onNegative={() => setScreen("phone")}
-        />
-      </View>
+      <ButtonSet
+        style={{
+          margin: 20,
+          width: 200,
+        }}
+        positive="Sign Up"
+        onPositive={submit}
+        negative="Start Again"
+        onNegative={() => setScreen("phone")}
+      />
     </View>
   );
 };

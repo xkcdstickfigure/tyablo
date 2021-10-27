@@ -110,14 +110,16 @@ export const CodeVerify = () => {
         </View>
       </View>
 
-      <View style={{ marginTop: 20 }}>
-        <ButtonSet
-          positive="Continue"
-          onPositive={submit}
-          negative="Change Phone Number"
-          onNegative={() => setScreen("phone")}
-        />
-      </View>
+      <ButtonSet
+        style={{
+          marginTop: 20,
+          width: 200,
+        }}
+        positive="Continue"
+        onPositive={submit}
+        negative="Change Phone Number"
+        onNegative={() => setScreen("phone")}
+      />
     </View>
   );
 };

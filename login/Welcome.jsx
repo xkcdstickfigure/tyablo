@@ -35,7 +35,13 @@ export const Welcome = () => {
           tyablo
         </Text>
       </View>
-      <ButtonSet positive="Let's Go!" onPositive={() => setScreen("phone")} />
+      <ButtonSet
+        style={{
+          width: 200,
+        }}
+        positive="Let's Go!"
+        onPositive={() => setScreen("phone")}
+      />
     </View>
   );
 };
