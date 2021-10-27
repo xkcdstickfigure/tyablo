@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { View } from "react-native";
+import { View, KeyboardAvoidingView, Platform } from "react-native";
 import { AppContext } from "./context";
 import { fetchContext } from "./util/fetchContext";
 import * as SecureStore from "expo-secure-store";
@@ -103,7 +103,11 @@ export const App = () => {
       }}
     >
       <View style={{ height: "100%", backgroundColor: "#ffffff" }}>
+      <KeyboardAvoidingView
+        behavior={Platform.OS === "ios" ? "padding" : "height"}
+      >
         {!loading && (signedIn ? context && <Page /> : <Login />)}
+        </KeyboardAvoidingView>
       </View>
     </AppContext.Provider>
   );

@@ -1,5 +1,5 @@
 import React, { useContext, useState } from "react";
-import { View, Dimensions, KeyboardAvoidingView } from "react-native";
+import { View, Dimensions } from "react-native";
 import { Welcome } from "./Welcome";
 import { PhoneLogin } from "./Phone";
 import { CodeVerify } from "./Code";
@@ -88,9 +88,6 @@ export const Login = () => {
         onLogin,
       }}
     >
-      <KeyboardAvoidingView
-        behavior={Platform.OS === "ios" ? "padding" : "height"}
-      >
         <View
           style={{
             height: "100%",
@@ -127,7 +124,6 @@ export const Login = () => {
             ) : null;
           })}
         </View>
-      </KeyboardAvoidingView>
     </LoginContext.Provider>
   );
 };
