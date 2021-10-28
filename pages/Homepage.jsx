@@ -1,12 +1,5 @@
 import React, { useContext, useEffect, useState } from "react";
-import {
-  View,
-  Text,
-  Image,
-  Pressable,
-  FlatList,
-  Dimensions,
-} from "react-native";
+import { View, Text, Image, Pressable, FlatList } from "react-native";
 import colors from "../colors";
 import { AppContext } from "../context";
 import { Plus } from "react-native-feather";
@@ -20,7 +13,7 @@ import axios from "axios";
 export const Homepage = () => {
   const { context, token } = useContext(AppContext);
   const [postEditor, setPostEditor] = useState(false);
-  const [loadingOlder, setLoadingOlder] = useState(false);
+  const [followedUsers, setFollowedUsers] = useState([]);
   const [feed, setFeed] = useState([]);
   const feedIds = feed.map((post) => post.id);
 
@@ -137,7 +130,15 @@ export const Homepage = () => {
               marginBottom: 10,
             }}
           >
-            <Post data={post} />
+            <Post
+              data={post}
+              followed={
+                post.author.followed || followedUsers.includes(post.author.id)
+              }
+              onFollow={() =>
+                setFollowedUsers(followedUsers.concat(post.author.id))
+              }
+            />
           </View>
         )}
         onEndReachedThreshold={0.5}

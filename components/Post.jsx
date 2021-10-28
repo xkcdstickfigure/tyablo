@@ -7,8 +7,8 @@ import { Heart } from "react-native-feather";
 import { API } from "../config";
 import axios from "axios";
 
-export const Post = ({ data }) => {
-  const { token } = useContext(AppContext);
+export const Post = ({ data, followed, onFollow }) => {
+  const { token, context } = useContext(AppContext);
   const [liked, setLiked] = useState(data.likes.self);
   const likeCount = displayCount(data.likes.count, data.likes.self, liked);
 
@@ -19,6 +19,21 @@ export const Post = ({ data }) => {
         Authorization: `Bearer ${token}`,
       },
     }).catch(() => {});
+
+  const follow = () => {
+    if (onFollow) onFollow();
+    axios
+      .post(
+        `${API}/user/${data.author.id}/follow`,
+        {},
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      )
+      .catch(() => {});
+  };
 
   return (
     <View
@@ -42,6 +57,7 @@ export const Post = ({ data }) => {
             flexDirection: "row",
             alignItems: "center",
             flexGrow: 1,
+            flexShrink: 1,
           }}
         >
           <Image
@@ -64,6 +80,31 @@ export const Post = ({ data }) => {
           >
             {data.author.name}
           </Text>
+          {data.author.id !== context.user.id &&
+            !data.author.page &&
+            !followed && (
+              <Pressable
+                onPress={follow}
+                style={{
+                  backgroundColor: colors.emerald[500],
+                  width: 50,
+                  height: 20,
+                  borderRadius: 5,
+                  alignItems: "center",
+                  justifyContent: "center",
+                  marginLeft: 10,
+                }}
+              >
+                <Text
+                  style={{
+                    color: "#ffffff",
+                    fontSize: 12,
+                  }}
+                >
+                  Follow
+                </Text>
+              </Pressable>
+            )}
         </View>
         <View
           style={{
