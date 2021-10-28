@@ -11,7 +11,7 @@ import { API } from "../config";
 import axios from "axios";
 
 export const Homepage = () => {
-  const { context, token } = useContext(AppContext);
+  const { context, token, setPage } = useContext(AppContext);
   const [postEditor, setPostEditor] = useState(false);
   const [followedUsers, setFollowedUsers] = useState([]);
   const [feed, setFeed] = useState([]);
@@ -167,6 +167,7 @@ export const Homepage = () => {
             ) : (
               <Post
                 data={item}
+                onOpen={() => setPage("post", item.id)}
                 followed={
                   item.author.following ||
                   followedUsers.includes(item.author.id)

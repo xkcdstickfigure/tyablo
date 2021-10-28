@@ -10,9 +10,11 @@ import axios from "axios";
 
 import { Login } from "./login";
 import { Homepage } from "./pages/Homepage";
+import { PostPage } from "./pages/Post";
 
 const pages = {
   home: Homepage,
+  post: PostPage,
 };
 
 export const App = () => {

@@ -7,7 +7,7 @@ import { Heart } from "react-native-feather";
 import { API } from "../config";
 import axios from "axios";
 
-export const Post = ({ data, followed, onFollow }) => {
+export const Post = ({ data, onOpen, followed, onFollow }) => {
   const { token, context } = useContext(AppContext);
   const [liked, setLiked] = useState(data.likes.self);
   const likeCount = displayCount(data.likes.count, data.likes.self, liked);
@@ -20,8 +20,7 @@ export const Post = ({ data, followed, onFollow }) => {
       },
     }).catch(() => {});
 
-  const follow = () => {
-    if (onFollow) onFollow();
+  const follow = () =>
     axios
       .post(
         `${API}/user/${data.author.id}/follow`,
@@ -33,7 +32,6 @@ export const Post = ({ data, followed, onFollow }) => {
         }
       )
       .catch(() => {});
-  };
 
   return (
     <View
@@ -42,14 +40,14 @@ export const Post = ({ data, followed, onFollow }) => {
         borderWidth: 1,
         borderColor: colors.gray[200],
         borderRadius: 10,
-        padding: 10,
-        paddingBottom: 15,
       }}
     >
       <View
         style={{
           flexDirection: "row",
           alignItems: "center",
+          padding: 10,
+          paddingBottom: 0,
         }}
       >
         <View
@@ -84,7 +82,11 @@ export const Post = ({ data, followed, onFollow }) => {
             !data.author.page &&
             !followed && (
               <Pressable
-                onPress={follow}
+                hitSlop={10}
+                onPress={() => {
+                  if (onFollow) onFollow();
+                  follow();
+                }}
                 style={{
                   backgroundColor: colors.emerald[500],
                   width: 50,
@@ -146,13 +148,18 @@ export const Post = ({ data, followed, onFollow }) => {
           </Pressable>
         </View>
       </View>
-      <Text
+      <Pressable
+        onPress={() => {
+          if (onOpen) onOpen();
+        }}
         style={{
           marginTop: 10,
+          paddingHorizontal: 10,
+          paddingBottom: 15,
         }}
       >
-        {data.content}
-      </Text>
+        <Text>{data.content}</Text>
+      </Pressable>
     </View>
   );
 };

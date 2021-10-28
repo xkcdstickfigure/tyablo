@@ -5,7 +5,6 @@ import colors from "../colors";
 export const PositiveButton = ({ children, style, ...props }) => {
   return (
     <Pressable
-      {...props}
       style={{
         backgroundColor: colors.emerald[500],
         width: "100%",
@@ -15,6 +14,7 @@ export const PositiveButton = ({ children, style, ...props }) => {
         justifyContent: "center",
         ...style,
       }}
+      {...props}
     >
       <Text
         style={{
@@ -31,7 +31,6 @@ export const PositiveButton = ({ children, style, ...props }) => {
 export const NegativeButton = ({ children, style, ...props }) => {
   return (
     <Pressable
-      {...props}
       hitSlop={10}
       style={{
         width: "100%",
@@ -39,6 +38,7 @@ export const NegativeButton = ({ children, style, ...props }) => {
         justifyContent: "center",
         ...style,
       }}
+      {...props}
     >
       <Text
         style={{
