@@ -3,6 +3,11 @@ import { View, Text, Image, Pressable } from "react-native";
 import colors from "../colors";
 import { AppContext } from "../context";
 import { Plus } from "react-native-feather";
+import { ButtonSet } from "../components/Button";
+import { Input } from "../components/Input";
+
+import { API } from "../config";
+import axios from "axios";
 
 export const Homepage = () => {
   const { context } = useContext(AppContext);
@@ -71,7 +76,7 @@ export const Homepage = () => {
         </View>
       </View>
 
-      {postEditor && <PostEditor />}
+      {postEditor && <PostEditor close={() => setPostEditor(false)} />}
     </View>
   );
 };
@@ -93,7 +98,31 @@ const IconButton = ({ icon: Icon, ...props }) => (
   </Pressable>
 );
 
-const PostEditor = () => {
+const PostEditor = ({ close }) => {
+  const { token } = useContext(AppContext);
+  const [content, setContent] = useState();
+
+  let loading = false;
+  const submit = () => {
+    if (loading || !content) return;
+    loading = true;
+
+    axios
+      .post(
+        `${API}/post`,
+        { content },
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      )
+      .then(close)
+      .catch(() => {
+        loading = false;
+      });
+  };
+
   return (
     <View
       style={{
@@ -101,7 +130,6 @@ const PostEditor = () => {
         bottom: 0,
         backgroundColor: "#ffffff",
         width: "100%",
-        height: 200,
         borderTopWidth: 1,
         borderLeftWidth: 1,
         borderRightWidth: 1,
@@ -112,7 +140,23 @@ const PostEditor = () => {
         paddingVertical: 15,
       }}
     >
-      <Text>Create New Post</Text>
+      <Input
+        autoFocus
+        multiline
+        style={{
+          width: "100%",
+          height: 80,
+          marginBottom: 20,
+        }}
+        onChangeText={(value) => setContent(value.trim())}
+      />
+
+      <ButtonSet
+        positive="Post"
+        onPositive={submit}
+        negative="Cancel"
+        onNegative={close}
+      />
     </View>
   );
 };
