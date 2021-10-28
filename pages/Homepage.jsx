@@ -121,24 +121,54 @@ export const Homepage = () => {
           paddingHorizontal: 10,
           paddingVertical: 20,
         }}
-        data={feed}
-        keyExtractor={(post) => post.id}
-        renderItem={({ item: post }) => (
+        data={["top"].concat(feed)}
+        keyExtractor={(item) => (item === "top" ? item : item.id)}
+        renderItem={({ item }) => (
           <View
-            key={post.id}
+            key={item === "top" ? item : item.id}
             style={{
               marginBottom: 10,
             }}
           >
-            <Post
-              data={post}
-              followed={
-                post.author.following || followedUsers.includes(post.author.id)
-              }
-              onFollow={() =>
-                setFollowedUsers(followedUsers.concat(post.author.id))
-              }
-            />
+            {item === "top" ? (
+              <>
+                {context.notice && (
+                  <View
+                    style={{
+                      backgroundColor: "#ffffff",
+                      borderWidth: 1,
+                      borderColor: colors.gray[200],
+                      borderRadius: 10,
+                      padding: 10,
+                    }}
+                  >
+                    <Text
+                      style={{
+                        fontSize: 8,
+                        fontWeight: "700",
+                        color: colors.gray[600],
+                        textTransform: "uppercase",
+                        marginBottom: 2,
+                      }}
+                    >
+                      Message from Tyablo
+                    </Text>
+                    <Text>{context.notice}</Text>
+                  </View>
+                )}
+              </>
+            ) : (
+              <Post
+                data={item}
+                followed={
+                  item.author.following ||
+                  followedUsers.includes(item.author.id)
+                }
+                onFollow={() =>
+                  setFollowedUsers(followedUsers.concat(item.author.id))
+                }
+              />
+            )}
           </View>
         )}
         onEndReachedThreshold={0.5}
