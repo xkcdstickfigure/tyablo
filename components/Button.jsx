@@ -32,6 +32,7 @@ export const NegativeButton = ({ children, style, ...props }) => {
   return (
     <Pressable
       {...props}
+      hitSlop={10}
       style={{
         width: "100%",
         alignItems: "center",
