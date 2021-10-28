@@ -56,12 +56,16 @@ export const PostPage = () => {
     ).catch(() => {});
 
   return post ? (
-    <View>
+    <View
+      style={{
+        height: "100%",
+      }}
+    >
       <View
         style={{
           flexDirection: "row",
           alignItems: "center",
-          paddingHorizontal: 10,
+          padding: 10,
           paddingTop: 35,
         }}
       >
@@ -174,6 +178,17 @@ export const PostPage = () => {
           </Pressable>
         </View>
       </View>
+
+      <ScrollView>
+        <View
+          style={{
+            paddingBottom: 10,
+            paddingHorizontal: 20,
+          }}
+        >
+          <Text>{post.content}</Text>
+        </View>
+      </ScrollView>
     </View>
   ) : null;
 };
