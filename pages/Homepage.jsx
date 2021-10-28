@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { View, Text, Image, Pressable } from "react-native";
 import colors from "../colors";
 import { AppContext } from "../context";
@@ -10,8 +10,39 @@ import { API } from "../config";
 import axios from "axios";
 
 export const Homepage = () => {
-  const { context } = useContext(AppContext);
+  const { context, token } = useContext(AppContext);
   const [postEditor, setPostEditor] = useState(false);
+  const [feed, setFeed] = useState([]);
+  let f = [];
+  const posts = {};
+
+  // Get Posts From Feed
+  const updateFeed = async (before) => {
+    try {
+      const { data } = await axios.get(`${API}/feed?before=${before}`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+
+      data.posts.forEach((post) => {
+        if (!f.includes(post.id)) {
+          posts[post.id] = post;
+          f =
+            typeof before === "undefined"
+              ? [post.id].concat(f)
+              : f.concat(post.id);
+          setFeed(f);
+        }
+      });
+    } catch (err) {}
+  };
+
+  useEffect(() => {
+    updateFeed();
+    const i = setInterval(updateFeed, 10000);
+    return () => clearInterval(i);
+  }, []);
 
   return (
     <View
@@ -75,6 +106,8 @@ export const Homepage = () => {
           </View>
         </View>
       </View>
+
+      <Text>{JSON.stringify(feed)}</Text>
 
       {postEditor && <PostEditor close={() => setPostEditor(false)} />}
     </View>
