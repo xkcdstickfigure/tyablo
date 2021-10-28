@@ -1,10 +1,23 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { View, Text, Image, Pressable } from "react-native";
 import colors from "../colors";
+import { AppContext } from "../context";
 import { Heart } from "react-native-feather";
 
+import { API } from "../config";
+import axios from "axios";
+
 export const Post = ({ data }) => {
+  const { token } = useContext(AppContext);
   const [liked, setLiked] = useState(false);
+
+  const like = (create) =>
+    axios(`${API}/post/${data.id}/like`, {
+      method: create ? "POST" : "DELETE",
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    }).catch(() => {});
 
   return (
     <View
@@ -60,6 +73,7 @@ export const Post = ({ data }) => {
             hitSlop={10}
             onPress={() => {
               setLiked(!liked);
+              like(!liked);
             }}
           >
             <Heart
