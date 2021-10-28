@@ -9,7 +9,8 @@ import axios from "axios";
 
 export const Post = ({ data }) => {
   const { token } = useContext(AppContext);
-  const [liked, setLiked] = useState(false);
+  const [liked, setLiked] = useState(data.likes.self);
+  const likeCount = displayCount(data.likes.count, data.likes.self, liked);
 
   const like = (create) =>
     axios(`${API}/post/${data.id}/like`, {
@@ -66,9 +67,27 @@ export const Post = ({ data }) => {
         </View>
         <View
           style={{
-            marginRight: 5,
+            flexDirection: "row",
+            alignItems: "center",
+            marginHorizontal: 5,
           }}
         >
+          <View
+            style={{
+              marginRight: 5,
+              width: 25,
+            }}
+          >
+            {!!likeCount && (
+              <Text
+                style={{
+                  textAlign: "right",
+                }}
+              >
+                {likeCount}
+              </Text>
+            )}
+          </View>
           <Pressable
             hitSlop={10}
             onPress={() => {
@@ -96,3 +115,6 @@ export const Post = ({ data }) => {
     </View>
   );
 };
+
+const displayCount = (serverCount, serverLiked, clientLiked) =>
+  serverCount + (serverLiked ? (clientLiked ? 0 : -1) : clientLiked ? 1 : 0);
