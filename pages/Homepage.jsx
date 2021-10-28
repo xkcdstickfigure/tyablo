@@ -26,12 +26,13 @@ export const Homepage = () => {
             Authorization: `Bearer ${token}`,
           },
         })
-        .then(({ data }) => {
-          const newPosts = data.posts.filter(
-            (post) => feedIds.indexOf(post.id) === -1
-          );
-          setFeed(newPosts.concat(feed));
-        })
+        .then(({ data }) =>
+          setFeed(
+            data.posts
+              .filter((post) => feedIds.indexOf(post.id) === -1)
+              .concat(feed)
+          )
+        )
         .catch(() => {});
     };
 
@@ -50,7 +51,13 @@ export const Homepage = () => {
           Authorization: `Bearer ${token}`,
         },
       })
-      .then(({ data }) => setFeed(feed.concat(data.posts)))
+      .then(({ data }) =>
+        setFeed(
+          feed.concat(
+            data.posts.filter((post) => feedIds.indexOf(post.id) === -1)
+          )
+        )
+      )
       .catch(() => {});
   };
 
