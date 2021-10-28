@@ -1,10 +1,11 @@
 import React, { useContext, useEffect, useState } from "react";
-import { View, Text, Image, Pressable } from "react-native";
+import { View, Text, Image, Pressable, ScrollView } from "react-native";
 import colors from "../colors";
 import { AppContext } from "../context";
 import { Plus } from "react-native-feather";
 import { ButtonSet } from "../components/Button";
 import { Input } from "../components/Input";
+import { Post } from "../components/Post";
 
 import { API } from "../config";
 import axios from "axios";
@@ -14,7 +15,6 @@ export const Homepage = () => {
   const [postEditor, setPostEditor] = useState(false);
   const [feed, setFeed] = useState([]);
   let f = [];
-  const posts = {};
 
   // Get Posts From Feed
   const updateFeed = async (before) => {
@@ -25,13 +25,9 @@ export const Homepage = () => {
         },
       });
 
-      data.posts.forEach((post) => {
-        if (!f.includes(post.id)) {
-          posts[post.id] = post;
-          f =
-            typeof before === "undefined"
-              ? [post.id].concat(f)
-              : f.concat(post.id);
+      data.posts.reverse().forEach((post) => {
+        if (!f.map((p) => p.id).includes(post.id)) {
+          f = typeof before === "undefined" ? [post].concat(f) : f.concat(post);
           setFeed(f);
         }
       });
@@ -54,9 +50,8 @@ export const Homepage = () => {
       <View
         style={{
           backgroundColor: "#ffffff",
+          padding: 10,
           paddingTop: 35,
-          paddingHorizontal: 10,
-          paddingBottom: 10,
           borderBottomWidth: 1,
           borderColor: colors.gray[200],
         }}
@@ -107,7 +102,25 @@ export const Homepage = () => {
         </View>
       </View>
 
-      <Text>{JSON.stringify(feed)}</Text>
+      <ScrollView>
+        <View
+          style={{
+            paddingHorizontal: 10,
+            paddingVertical: 20,
+          }}
+        >
+          {feed.map((post) => (
+            <View
+              key={post.id}
+              style={{
+                marginBottom: 10,
+              }}
+            >
+              <Post data={post} />
+            </View>
+          ))}
+        </View>
+      </ScrollView>
 
       {postEditor && <PostEditor close={() => setPostEditor(false)} />}
     </View>
