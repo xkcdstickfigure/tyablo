@@ -133,7 +133,7 @@ export const Homepage = () => {
             <Post
               data={post}
               followed={
-                post.author.followed || followedUsers.includes(post.author.id)
+                post.author.following || followedUsers.includes(post.author.id)
               }
               onFollow={() =>
                 setFollowedUsers(followedUsers.concat(post.author.id))
