@@ -1,5 +1,12 @@
 import React, { useContext, useEffect, useState } from "react";
-import { View, Text, Image, Pressable, ScrollView } from "react-native";
+import {
+  View,
+  Text,
+  Image,
+  Pressable,
+  FlatList,
+  Dimensions,
+} from "react-native";
 import colors from "../colors";
 import { AppContext } from "../context";
 import { Plus } from "react-native-feather";
@@ -13,32 +20,46 @@ import axios from "axios";
 export const Homepage = () => {
   const { context, token } = useContext(AppContext);
   const [postEditor, setPostEditor] = useState(false);
+  const [loadingOlder, setLoadingOlder] = useState(false);
   const [feed, setFeed] = useState([]);
-  let f = [];
+  const feedIds = feed.map((post) => post.id);
 
-  // Get Posts From Feed
-  const updateFeed = async (before) => {
-    try {
-      const { data } = await axios.get(`${API}/feed?before=${before}`, {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      });
-
-      data.posts.reverse().forEach((post) => {
-        if (!f.map((p) => p.id).includes(post.id)) {
-          f = typeof before === "undefined" ? [post].concat(f) : f.concat(post);
-          setFeed(f);
-        }
-      });
-    } catch (err) {}
-  };
-
+  // Load New Posts
   useEffect(() => {
+    const updateFeed = () => {
+      axios
+        .get(`${API}/feed`, {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        })
+        .then(({ data }) => {
+          const newPosts = data.posts.filter(
+            (post) => feedIds.indexOf(post.id) === -1
+          );
+          setFeed(newPosts.concat(feed));
+        })
+        .catch(() => {});
+    };
+
     updateFeed();
     const i = setInterval(updateFeed, 10000);
     return () => clearInterval(i);
-  }, []);
+  }, [feedIds.length]);
+
+  // Load Old Posts
+  const loadOlderPosts = () => {
+    if (!feed.length) return;
+    const before = new Date(feed[feed.length - 1].createdAt).getTime();
+    axios
+      .get(`${API}/feed?before=${before}`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      })
+      .then(({ data }) => setFeed(feed.concat(data.posts)))
+      .catch(() => {});
+  };
 
   return (
     <View
@@ -102,25 +123,26 @@ export const Homepage = () => {
         </View>
       </View>
 
-      <ScrollView>
-        <View
-          style={{
-            paddingHorizontal: 10,
-            paddingVertical: 20,
-          }}
-        >
-          {feed.map((post) => (
-            <View
-              key={post.id}
-              style={{
-                marginBottom: 10,
-              }}
-            >
-              <Post data={post} />
-            </View>
-          ))}
-        </View>
-      </ScrollView>
+      <FlatList
+        contentContainerStyle={{
+          paddingHorizontal: 10,
+          paddingVertical: 20,
+        }}
+        data={feed}
+        keyExtractor={(post) => post.id}
+        renderItem={({ item: post }) => (
+          <View
+            key={post.id}
+            style={{
+              marginBottom: 10,
+            }}
+          >
+            <Post data={post} />
+          </View>
+        )}
+        onEndReachedThreshold={0.5}
+        onEndReached={loadOlderPosts}
+      />
 
       {postEditor && <PostEditor close={() => setPostEditor(false)} />}
     </View>
